@@ -3,7 +3,7 @@ from matplotlib.animation import FuncAnimation
 from planet_motion import PlanetSystem
 
 def plot(rs, delta_t=100, save=False):
-    downsample = 5000 // delta_t
+    downsample = 50000 // delta_t
     rs = rs[::downsample]
     
     fig, ax = plt.subplots()
@@ -28,8 +28,8 @@ def plot(rs, delta_t=100, save=False):
         point.set_data([x], [y])  # 在当前帧的位置画一个小圆点
         return ln, point,
     
-    ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=1, repeat=False)
+    ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=20, repeat=False)
     if save:
-        ani.save('Planet_Motion.gif', writer='pillow', fps=1000)
+        ani.save('Planet_Motion.gif', writer='pillow', fps=60)
         
     plt.show()
