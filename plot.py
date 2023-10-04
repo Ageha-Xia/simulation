@@ -1,9 +1,20 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.animation import FuncAnimation
-from planet_motion import PlanetSystem
+from planet import PlanetSystem
 
-def plot(rs, delta_t=100, save=False):
-    downsample = 50000 // delta_t
+def rounded_max_abs_value(arr):
+    max_abs_val = np.max(np.abs(arr))
+    
+    # calculate the magnitude
+    order_of_magnitude = 10 ** (int(np.log10(max_abs_val)))
+    
+    # get the ceiling number with figure divided by magnitude
+    rounded_value = np.ceil(max_abs_val / order_of_magnitude) * order_of_magnitude
+    
+    return int(rounded_value)
+
+def plot(rs, downsample, save=None, magnitude=None):
     rs = rs[::downsample]
     
     fig, ax = plt.subplots()
@@ -15,7 +26,10 @@ def plot(rs, delta_t=100, save=False):
     point, = plt.plot([], [], 'bo', animated=True)  # 'bo' 表示蓝色圆点
     
     def init():
-        r = 2e11
+        if magnitude:
+            r = magnitude
+        else:
+            r = rounded_max_abs_value(rs)
         ax.set_xlim(-r, r)  # 设置x轴的范围
         ax.set_ylim(-r, r)  # 设置y轴的范围
         return ln,
@@ -30,6 +44,6 @@ def plot(rs, delta_t=100, save=False):
     
     ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=20, repeat=False)
     if save:
-        ani.save('Planet_Motion.gif', writer='pillow', fps=60)
+        ani.save(f'{save}.gif', writer='pillow', fps=60)
         
     plt.show()
