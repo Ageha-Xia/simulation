@@ -1,18 +1,10 @@
 import numpy as np
 from method import *
 
-
-class PlanetSystem():
-    def __init__(self, r, v, M=1.988e30, m=5.965e24):
-        # M: solar mass
-        # m: earth mass
-        self.G = 6.6743e-11    # gravitational constant
-        self.r0 = 1.496e11
-        self.v0 = 2.978e4
-        self.r = self.r0 * r    # r expects a numpy.array with shape (2,)
-        self.v = self.v0 * v
-        self.m = m
-        self.M = M
+class Planet():
+    def __init__(self):
+        self.M = 1.988e30   # solar mass
+        self.G = 6.67408e-11    # gravitational constant
         self.methods = {
             'euler':euler, 
             'euler_cromer': euler_cromer
@@ -36,5 +28,27 @@ class PlanetSystem():
         }
         
         normalized_r, normalized_v =  self.methods[method](int(t / delta_t), force_list[force], self.r, self.v, self.m, self.r0, self.v0, delta_t)
-        return normalized_r * self.r0
+        return normalized_r * self.r0, normalized_v * self.v0
+
+class Earth(Planet):
+    def __init__(self, r, v):
+        super().__init__()
         
+        self.m = 5.965e24   # earth mass
+        self.r0 = 1.496e11
+        self.v0 = 2.978e4
+        
+        self.r = self.r0 * r    # r expects a numpy.array with shape (2,)
+        self.v = self.v0 * v
+        
+class Jupiter(Planet):
+    def __init__(self, r, v):
+        super().__init__()
+        
+        self.m = 1.8986e27   # jupiter mass
+        self.r0 = 7.78e11
+        self.v0 = 1.306e4
+        
+        self.r = self.r0 * r    # r expects a numpy.array with shape (2,)
+        self.v = self.v0 * v
+    
