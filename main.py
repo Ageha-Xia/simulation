@@ -15,7 +15,7 @@ def jupiter_orbit(delta_t=100):
 def p1_1():
     delta_t = 100
     rs, vs = earth_orbit(delta_t)    
-    plot(rs, downsample=50000 / delta_t, save='p1_1', title='Earth\'s orbit by Euler Cromer method')
+    plot(rs, downsample=50000 // delta_t, save='p1_1', title='Earth\'s orbit by Euler Cromer method')
     
 def p1_2():
     planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 5]))
@@ -97,4 +97,4 @@ def p2_3():
     print(f"A^3/T^2(Earth):{v_earth:.4e}, A^3/T^2(Jupiter):{v_jupiter:.4e}, relative_error={(np.abs(v_earth - v_jupiter) / v_jupiter * 100):.4e}%")
     
 if __name__ == '__main__':
-    p2_3()
+    p1_3()

@@ -44,7 +44,7 @@ def plot(rs, downsample, save=None, title=None):
     
     ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=20, repeat=False)
     if save:
-        ani.save(f'{save}.gif', writer='pillow', fps=60)
+        ani.save(f'./fig/{save}.gif', writer='pillow', fps=120)
         
     plt.show()
 
