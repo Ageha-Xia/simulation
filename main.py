@@ -2,20 +2,20 @@ import numpy as np
 from planet import *
 from plot import plot
 
-def earth_orbit(delta_t=100):
+def earth_orbit(delta_t=100, method='euler_cromer'):
     planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 1]))
-    rs, vs = planetsystem.simulate(365.243 * 86400, delta_t=delta_t, method='euler_cromer')
+    rs, vs = planetsystem.simulate(365.243 * 86400, delta_t=delta_t, method=method)
     return rs, vs
 
-def jupiter_orbit(delta_t=100):
+def jupiter_orbit(delta_t=100, method='euler_cromer'):
     planetsystem = Jupiter(r=np.array([1, 0]), v=np.array([0, 1]))
-    rs, vs = planetsystem.simulate(4332.38 * 86400, delta_t=delta_t, method='euler_cromer')
+    rs, vs = planetsystem.simulate(4332.38 * 86400, delta_t=delta_t, method=method)
     return rs, vs
 
 def p1_1():
     delta_t = 100
-    rs, vs = earth_orbit(delta_t)    
-    plot(rs, downsample=50000 // delta_t, save='p1_1', title='Earth\'s orbit by Euler Cromer method')
+    rs, vs = earth_orbit(delta_t, 'euler')
+    plot(rs, downsample=50000 // delta_t, save='p1_1_euler', title='Earth\'s orbit by Euler method')
     
 def p1_2():
     planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 5]))
@@ -23,12 +23,17 @@ def p1_2():
     rs, vs = planetsystem.simulate(t=1e11, delta_t=delta_t, method='euler_cromer', force='delta')
     plot(rs, downsample=10000, save='p1_2', title='Earth\'s orbit under fine-tuning gravity')
 
-def p1_3():
-    planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 2.5855e-6]))
+def p1_3(coef=1):
+    planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 2.5855e-6 * coef]))
     delta_t = int(1e7)
     rs, vs = planetsystem.simulate(t=1e14, delta_t=delta_t, method='euler_cromer', force='cube')
-    plot(rs, downsample=10000, save='p1_3', title='Earth\'s orbit under cubic gravity')
+    plot(rs, downsample=10000, save=f'p1_3_{coef}', title='Earth\'s orbit under cubic gravity')
 
+def p1_4():
+    delta_t = 100
+    rs, vs = earth_orbit(delta_t, 'euler_richardson')
+    plot(rs, downsample=50000 // delta_t, save='p1_4', title='Earth\'s orbit by Euler-Richardson method')
+    
 def p2_1():
     # Earth
     rs, vs = earth_orbit()
@@ -97,4 +102,4 @@ def p2_3():
     print(f"A^3/T^2(Earth):{v_earth:.4e}, A^3/T^2(Jupiter):{v_jupiter:.4e}, relative_error={(np.abs(v_earth - v_jupiter) / v_jupiter * 100):.4e}%")
     
 if __name__ == '__main__':
-    p1_3()
+    p2_3()

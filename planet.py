@@ -7,7 +7,8 @@ class Planet():
         self.G = 6.67408e-11    # gravitational constant
         self.methods = {
             'euler':euler, 
-            'euler_cromer': euler_cromer
+            'euler_cromer': euler_cromer,
+            'euler_richardson':euler_richardson
         }
     
     def force(self, r):
