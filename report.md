@@ -2,7 +2,7 @@
 ##### 2023年9月27日
 ##### 夏泽宇 2021012242
 
-*建议从github上查看本报告，或者将仓库克隆到本地使用支持Markdown语法的编辑器查看。仓库地址：[Github]*
+*建议从github上查看本报告，或者将仓库克隆到本地使用支持Markdown语法的编辑器查看。仓库地址：[Github](https://github.com/Ageha-Xia/simulation)*
 ##### 1.1 
 $
 地球绕太阳公转速度为2.978\times10^4 m/s。总时间t=365.243 \times 86400s（一年），时间步\Delta t=100s。使用Euler-Cromer法进行模拟结果如下：
