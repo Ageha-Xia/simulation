@@ -40,7 +40,8 @@ $$
 \begin{aligned}
     \frac{GMm}{r^3}&=m\frac{v'^2}{r}
     \\ v'=\frac{\sqrt{GM}}{r}&=\frac{v}{\sqrt{r}}，其中r是日地距离
-    \\因此取v_y&=\frac{1}{\sqrt{r}}\approx2.5855\times10^{-6} m/s
+    \\因此取v_y&=\frac{1}{\sqrt{r}}\approx2.5855\times10^{-6}
+    \\即v_y\approx2.5855\times 10^{-6}v，&其中v是实际地球公转速度
 \end{aligned}
 $$
 $
