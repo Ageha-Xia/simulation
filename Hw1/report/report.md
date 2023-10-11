@@ -7,11 +7,11 @@
 $
 地球绕太阳公转速度为2.978\times10^4 m/s。总时间t=365.243 \times 86400s（一年），时间步\Delta t=100s。使用Euler-Cromer法进行模拟结果如下：
 $
-<img src="./fig/p1_1_euler_cromer.gif" alt="show" />
+<img src="../fig/p1_1_euler_cromer.gif" alt="show" />
 $
 使用Euler法进行模拟结果如下：
 $
-<img src="./fig/p1_1_euler.gif" alt="show" />
+<img src="../fig/p1_1_euler.gif" alt="show" />
 $
 在该时间步的设定下，2种方法没有显著区别
 $
@@ -33,7 +33,7 @@ $$
 $
 使用Euler-Cromer模拟结果如下图：
 $
-<img src="./fig/p1_2.gif" alt="show" />
+<img src="../fig/p1_2.gif" alt="show" />
 
 ##### 1.3
 $$
@@ -48,13 +48,13 @@ $
 在总时间t=10^{14}s下，若设时间步\Delta t为10^7s，仍可保持数圈内的圆周轨道，但当\Delta t=10^8s时，则无法保持。
 \\\Delta t=10^7s设定下的轨道图：
 $
-<img src="./fig/p1_3.gif" alt="show" />
+<img src="../fig/p1_3.gif" alt="show" />
 
 ##### 1.4
 $
 使用Euler-Richardson方法进行1.1问题的求解，轨道图如下：
 $
-<img src="./fig/p1_4.gif" alt="show" />
+<img src="../fig/p1_4.gif" alt="show" />
 
 ##### 2.1
 $
@@ -64,7 +64,7 @@ $
 \\二者的轨道可近似认为是圆，即偏心率接近0的椭圆
 \\木星的轨道用Euler-Cromer法模拟如下：
 $
-<img src="./fig/p2_1.gif" alt="show" />
+<img src="../fig/p2_1.gif" alt="show" />
 
 ##### 2.2
 $
