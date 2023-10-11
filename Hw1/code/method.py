@@ -1,11 +1,11 @@
 import numpy as np
 from numba import jit
 
-@jit(forceobj=True)
-def display(i, steps):
-    if i % (steps // 100) == 0:
-        percentage = (i / steps) * 100
-        print('\r%.2f%%' % percentage, end='')
+# @jit(forceobj=True)
+# def display(i, steps):
+#     if i % (steps // 100) == 0:
+#         percentage = (i / steps) * 100
+#         print('\r%.2f%%' % percentage, end='')
 
 @jit(nopython=True)
 def euler(steps, force, r, v, m, r0, v0, delta_t=1):
@@ -16,7 +16,6 @@ def euler(steps, force, r, v, m, r0, v0, delta_t=1):
     v = v / v0
     
     for i in range(steps):
-        display(i, steps)
         rs[i] = r 
         vs[i] = v
         a = force(m, r, r0) / m 
@@ -25,6 +24,7 @@ def euler(steps, force, r, v, m, r0, v0, delta_t=1):
         
     return rs, vs
 
+@jit(nopython=True)
 def euler_cromer(steps, force, r, v, m, r0, v0, delta_t=1):
     rs = np.empty((steps, 2)) 
     vs = np.empty((steps, 2))
@@ -33,16 +33,15 @@ def euler_cromer(steps, force, r, v, m, r0, v0, delta_t=1):
     v = v / v0
     
     for i in range(steps):
-        display(i, steps)
         rs[i] = r
         vs[i] = v
         a = force(m, r, r0) / m
         v += a * delta_t / (v0 * (r0 ** 2))
         r += v * delta_t * v0 / r0
     
-    print('\n')
     return rs, vs
 
+@jit(nopython=True)
 def euler_richardson(steps, force, r, v, m, r0, v0, delta_t=1):
     rs = np.empty((steps, 2)) 
     vs = np.empty((steps, 2))
@@ -51,7 +50,6 @@ def euler_richardson(steps, force, r, v, m, r0, v0, delta_t=1):
     v = v / v0
     
     for i in range(steps):
-        display(i, steps)
         rs[i] = r
         vs[i] = v
         a = force(m, r, r0) / m
@@ -62,5 +60,4 @@ def euler_richardson(steps, force, r, v, m, r0, v0, delta_t=1):
         v += a_ * delta_t / (v0 * (r0 ** 2))
         r += v_ * delta_t * v0 / r0
     
-    print('\n')
     return rs, vs
