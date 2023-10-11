@@ -1,9 +1,11 @@
 import numpy as np
 from numba import jit
 
+@jit(forceobj=True)
 def display(i, steps):
     if i % (steps // 100) == 0:
-        print(f'\r{i / steps * 100:.2f}%', end='')
+        percentage = (i / steps) * 100
+        print('\r%.2f%%' % percentage, end='')
 
 @jit(nopython=True)
 def euler(steps, force, r, v, m, r0, v0, delta_t=1):
