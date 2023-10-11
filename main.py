@@ -15,24 +15,24 @@ def jupiter_orbit(delta_t=100, method='euler_cromer'):
 def p1_1():
     delta_t = 100
     rs, vs = earth_orbit(delta_t, 'euler')
-    plot(rs, downsample=50000 // delta_t, save='p1_1_euler', title='Earth\'s orbit by Euler method')
+    plot(rs, downsample=50000 // delta_t, save=None, title='Earth\'s orbit by Euler method')
     
 def p1_2():
     planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 5]))
     delta_t = 10000
     rs, vs = planetsystem.simulate(t=1e11, delta_t=delta_t, method='euler_cromer', force='delta')
-    plot(rs, downsample=10000, save='p1_2', title='Earth\'s orbit under fine-tuning gravity')
+    plot(rs, downsample=10000, save=None, title='Earth\'s orbit under fine-tuning gravity')
 
 def p1_3(coef=1):
     planetsystem = Earth(r=np.array([1, 0]), v=np.array([0, 2.5855e-6 * coef]))
     delta_t = int(1e7)
     rs, vs = planetsystem.simulate(t=1e14, delta_t=delta_t, method='euler_cromer', force='cube')
-    plot(rs, downsample=10000, save=f'p1_3_{coef}', title='Earth\'s orbit under cubic gravity')
+    plot(rs, downsample=10000, save=None, title='Earth\'s orbit under cubic gravity')
 
 def p1_4():
     delta_t = 100
     rs, vs = earth_orbit(delta_t, 'euler_richardson')
-    plot(rs, downsample=50000 // delta_t, save='p1_4', title='Earth\'s orbit by Euler-Richardson method')
+    plot(rs, downsample=50000 // delta_t, save=None, title='Earth\'s orbit by Euler-Richardson method')
     
 def p2_1():
     # Earth
@@ -48,7 +48,7 @@ def p2_1():
     max_distance = np.max(distances)
     min_distance = np.min(distances)
     print(f"Max distance(Jupiter): {max_distance:.4e}, Min distance(Jupiter): {min_distance:.4e}, L2_Error={((max_distance - min_distance)/ max_distance * 100):.4e}%")
-    plot(rs, downsample=10000, save='p2_1', title='Jupiter\'s orbit by Euler Cromer method')
+    plot(rs, downsample=10000, save=None, title='Jupiter\'s orbit by Euler Cromer method')
 
 def p2_2():
     def L2_Error(areas):
@@ -72,20 +72,20 @@ def p2_2():
 
 def p2_3():
     def kepler_third_law(rs, delta_t):
-        # 计算每一点与太阳之间的距离
+        # Calculate the distance between each point and the sun
         distances = np.linalg.norm(rs, axis=1)
         
-        # 找到最远和最近的距离
+        # Find the farthest and the closest distance
         r_max = np.max(distances)
         r_min = np.min(distances)
         
-        # 计算半长轴 a
+        # Calculate the semi-major axis a
         a = 0.5 * (r_max + r_min)
         
-        # 周期 T 是总时间，即 delta_t 乘以数据点的数量
+        # The period T is the total time, i.e. delta t multiplies the number of data points
         T = delta_t * len(rs)
         
-        # 计算 a^3/T^2
+        # Calculate a^3/T^2
         value = (a**3) / (T**2)
         
         return value
@@ -103,3 +103,4 @@ def p2_3():
     
 if __name__ == '__main__':
     p2_3()
+    

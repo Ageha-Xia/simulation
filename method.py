@@ -1,6 +1,11 @@
 import numpy as np
-from tqdm import tqdm
+from numba import jit
 
+def display(i, steps):
+    if i % (steps // 100) == 0:
+        print(f'\r{i / steps * 100:.2f}%', end='')
+
+@jit(nopython=True)
 def euler(steps, force, r, v, m, r0, v0, delta_t=1):
     rs = np.empty((steps, 2)) 
     vs = np.empty((steps, 2))
@@ -8,10 +13,11 @@ def euler(steps, force, r, v, m, r0, v0, delta_t=1):
     r = r / r0
     v = v / v0
     
-    for i in tqdm(range(steps)):
+    for i in range(steps):
+        display(i, steps)
         rs[i] = r 
         vs[i] = v
-        a = force(r) / m 
+        a = force(m, r, r0) / m 
         r += v * delta_t * v0 / r0
         v += a * delta_t / (v0 * (r0 ** 2))
         
@@ -24,13 +30,15 @@ def euler_cromer(steps, force, r, v, m, r0, v0, delta_t=1):
     r = r / r0
     v = v / v0
     
-    for i in tqdm(range(steps)):
+    for i in range(steps):
+        display(i, steps)
         rs[i] = r
         vs[i] = v
-        a = force(r) / m
+        a = force(m, r, r0) / m
         v += a * delta_t / (v0 * (r0 ** 2))
         r += v * delta_t * v0 / r0
-        
+    
+    print('\n')
     return rs, vs
 
 def euler_richardson(steps, force, r, v, m, r0, v0, delta_t=1):
@@ -40,15 +48,17 @@ def euler_richardson(steps, force, r, v, m, r0, v0, delta_t=1):
     r = r / r0
     v = v / v0
     
-    for i in tqdm(range(steps)):
+    for i in range(steps):
+        display(i, steps)
         rs[i] = r
         vs[i] = v
-        a = force(r) / m
+        a = force(m, r, r0) / m
         r_ = r + 0.5 * v * delta_t * v0 / r0
         v_ = v + 0.5 * a * delta_t / (v0 * (r0 ** 2))
         
-        a_ = force(r_) / m
+        a_ = force(m, r_, r0) / m
         v += a_ * delta_t / (v0 * (r0 ** 2))
         r += v_ * delta_t * v0 / r0
-        
+    
+    print('\n')
     return rs, vs

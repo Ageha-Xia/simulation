@@ -1,25 +1,32 @@
 import numpy as np
 from method import *
+from numba import jit
+
+G = 6.67408e-11         # gravitational constant
+M = 1.988e30            # sun mass
 
 class Planet():
-    def __init__(self):
-        self.M = 1.988e30   # solar mass
-        self.G = 6.67408e-11    # gravitational constant
-        self.methods = {
-            'euler':euler, 
-            'euler_cromer': euler_cromer,
-            'euler_richardson':euler_richardson
-        }
+    methods = {
+        'euler':euler, 
+        'euler_cromer': euler_cromer,
+        'euler_richardson':euler_richardson
+    }
     
-    def force(self, r):
+    @staticmethod
+    @jit(nopython=True) 
+    def force(m, r, r0):
         # r is supposed to a numpy array with shape (2,)
-        return -self.G * self.M * self.m / (np.linalg.norm(r, ord=2) ** 3) * r
+        return -G * M * m / (np.linalg.norm(r, ord=2) ** 3) * r
     
-    def force_delta(self, r):
-        return -self.G * self.M * self.m / (np.linalg.norm(r, ord=2) ** 3.05) * r
+    @staticmethod
+    @jit(nopython=True) 
+    def force_delta(m, r, r0):
+        return -G * M * m / (np.linalg.norm(r, ord=2) ** 3.05) * r
     
-    def force_cube(self, r):
-        return -self.G * self.M * self.m / (np.linalg.norm(r, ord=2) ** 4) / self.r0 * r
+    @staticmethod
+    @jit(nopython=True) 
+    def force_cube(m, r, r0):
+        return -G * M * m / (np.linalg.norm(r, ord=2) ** 4) / r0 * r
     
     def simulate(self, t, delta_t=1, method='euler', force='default'):
         force_list = {
@@ -33,7 +40,6 @@ class Planet():
 
 class Earth(Planet):
     def __init__(self, r, v):
-        super().__init__()
         
         self.m = 5.965e24   # earth mass
         self.r0 = 1.496e11
@@ -44,7 +50,6 @@ class Earth(Planet):
         
 class Jupiter(Planet):
     def __init__(self, r, v):
-        super().__init__()
         
         self.m = 1.8986e27   # jupiter mass
         self.r0 = 7.78e11
