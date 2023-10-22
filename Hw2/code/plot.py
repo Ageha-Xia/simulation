@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-def plot(x1, x2, downsample=100, save=None, title=None):
+def plot(x1, x2, downsample=100, save=None, title=None, show=False):
     x1 = x1[::downsample]
     x2 = x2[::downsample]
     # Ensure that x1 and x2 have the same shape
@@ -42,4 +42,6 @@ def plot(x1, x2, downsample=100, save=None, title=None):
     anim = FuncAnimation(fig, animate, init_func=init, frames=len(x1), interval=20, blit=True, repeat=False)
     if save:
         anim.save(f'../fig/{save}.gif', writer='pillow', fps=120)
-    # plt.show()
+    
+    if show:
+        plt.show()
