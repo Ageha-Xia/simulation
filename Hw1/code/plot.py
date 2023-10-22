@@ -42,7 +42,7 @@ def plot(rs, downsample, save=None, title=None):
         point.set_data([x], [y])  
         return ln, point,
     
-    ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=20, repeat=False)
+    ani = FuncAnimation(fig, update, frames=range(len(rs)), init_func=init, blit=True, interval=1, repeat=False)
     if save:
         ani.save(f'./fig/{save}.gif', writer='pillow', fps=120)
         
