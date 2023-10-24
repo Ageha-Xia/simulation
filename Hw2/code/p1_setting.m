@@ -17,7 +17,7 @@ initial_conditions = [10; 0; 20; 0]; % 可根据需要修改
 tspan = [0, 100];
 
 % 使用ode45求解
-[t, Y] = ode45(@(t, y) oscillator(t, y, k1, k2, m1, m2, l1, l2, F), tspan, initial_conditions);
+[t, Y] = ode45(@(t, y) p1_oscillator(t, y, k1, k2, m1, m2, l1, l2, F), tspan, initial_conditions);
 
 
 

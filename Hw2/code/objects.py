@@ -14,6 +14,7 @@ class Object:
         self.strings = []   # 表示与物体相连的弹簧
         self.forces = []    # 表示物体受到的内力
         self.external_forces = []   # 表示物体受到的外力
+        self.index = 1
     
     def link(self, string, pos='r'):
         '''
@@ -27,7 +28,16 @@ class Object:
             self.forces.append(lambda: -string.force())
     
     def add_force(self, force):
+        '''
+        force表示物体受到的外力
+        '''
         self.external_forces.append(force)
+        
+    def add_friction(self, k):
+        '''
+        k表示摩擦系数
+        '''
+        self.forces.append(lambda : -k * self.v[self.index - 1])
     
     def force(self):
         force = 0
@@ -57,7 +67,7 @@ class Object:
         # self.x[self.index] = 2 * self.x[self.index - 1] - self.x[self.index - 2] + self.force() / self.m * dt * dt
         # self.v[self.index - 1] = (self.x[self.index] - self.x[self.index - 2]) / (2 * dt)
         
-        def flash(x=None, dt=None, index=False):
+        def flash(x=None, v=None, dt=None, index=False):
             # 状态更新
             for s in self.strings:
                 if s[0] == 'r':
@@ -67,6 +77,8 @@ class Object:
             if index:
                 self.index += 1
             self.t = t0 + dt
+            if v:
+                self.v[self.index] = v
 
         # 4阶Runge-Kutta
         x0 = self.x[self.index - 1]
@@ -75,13 +87,13 @@ class Object:
         k1x = dt * v0
         k1v = dt * self.force() / self.m
         k2x = dt * (v0 + 0.5 * k1v)
-        flash(x=x0 + 0.5 * k1x, dt=0.5 * dt)
+        flash(x=x0 + 0.5 * k1x, v=k1v, dt=0.5 * dt)
         k2v = dt * self.force() / self.m
         k3x = dt * (v0 + 0.5 * k2v)
-        flash(x=x0 + 0.5 * k2x, dt=0.5 * dt)
+        flash(x=x0 + 0.5 * k2x, v=k2v, dt=0.5 * dt)
         k3v = dt * self.force() / self.m
         k4x = dt * (v0 + k3v)
-        flash(x=x0 + k3x, dt=dt)
+        flash(x=x0 + k3x, v=k3v, dt=dt)
         k4v = dt * self.force() / self.m
         
         self.x[self.index] = x0 + (k1x + 2 * k2x + 2 * k3x + k4x) / 6

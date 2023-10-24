@@ -1,4 +1,4 @@
-function dy = oscillator(t, y, k1, k2, m1, m2, l1, l2, F)
+function dy = p1_oscillator(t, y, k1, k2, m1, m2, l1, l2, F)
     x1 = y(1);
     v1 = y(2);
     x2 = y(3);
