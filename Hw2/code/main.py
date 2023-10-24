@@ -9,15 +9,15 @@ from scipy.signal import find_peaks
 
 def double_spring_oscillator(f=0.68614):
     t = 100
-    dt = 1e-5
+    dt = 1e-4
     steps = int(t / dt)
 
 
     len1 = 10
     len2 = 10
 
-    # force = Force_Sin(5, f, 0)
-    force = Force_Square(f, 5)
+    force = Force_Sin(5, f, 0)
+    # force = Force_Square(f, 5)
 
     s1 = String(l=0, r=len1, length=len1, k=600)
     s2 = String(l=len1, r=len1 + len2, length=len2, k=1000)
