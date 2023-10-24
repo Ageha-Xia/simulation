@@ -14,7 +14,7 @@ class Force_Sin(Force):
         return -self.A * np.sin(self.f * t + self.phi)
     
 class Force_Square(Force):
-    def __init__(self, f, A):
+    def __init__(self, A, f):
         self.T = 1 / f  # 周期
         self.A = A  # 振幅
 
