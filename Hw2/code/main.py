@@ -126,7 +126,8 @@ def single_oscillator(gamma=0.5, save=None, show=True):
 
     print(f'period: {t:.4f} s')
     print(f'frequency:{2 * np.pi / t:.4f} Hz')
-    plot([m.x], int(0.1 / dt), save=save, show=show)
+    if show or save:
+        plot([m.x], int(0.1 / dt), save=save, show=show)
 
 def p2_1():
     single_oscillator(0.5, 'p2_1_gamma=0.5', False)
