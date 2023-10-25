@@ -87,7 +87,7 @@ def p1_2():
     t2s = np.zeros_like(fs)
     
     for i in tqdm(range(len(fs))):
-        f = fs[i] * 2 * np.pi
+        f = fs[i]
         a1s[i], a2s[i], t1s[i], t2s[i] = double_spring_oscillator(f, 'square', False, False)
     
     df = pd.DataFrame({
