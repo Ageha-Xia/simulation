@@ -7,6 +7,7 @@ from forces import *
 from plot import plot
 from tqdm import tqdm
 from scipy.signal import find_peaks
+from concurrent.futures import ProcessPoolExecutor
 
 def double_spring_oscillator(f=0.68614, drive='sin', save=False, show=True):
     t = 100
@@ -48,12 +49,16 @@ def double_spring_oscillator(f=0.68614, drive='sin', save=False, show=True):
 
     t1 = find_period(m1.x)
     t2 = find_period(m2.x)
-    print(f'Amplitude of m1: {a1:.4f} m, period: {t1:.4f} s')
-    print(f'Amplitude of m2: {a2:.4f} m, period: {t2:.4f} s')
+    if save or show:
+        print(f'Amplitude of m1: {a1:.4f} m, period: {t1:.4f} s')
+        print(f'Amplitude of m2: {a2:.4f} m, period: {t2:.4f} s')
 
     plot([m1.x, m2.x], int(0.1 / dt), save=f'resonance, f={f}Hz, {drive}_wave' if save else None, 
          title=f if save else None, show=show)
     return (a1, a2, t1, t2)
+
+def wrapper(args):
+    return double_spring_oscillator(*args)
 
 def p1_1():
     f1 = np.arange(0.4, 0.8 + 0.05, 0.01)
@@ -64,9 +69,15 @@ def p1_1():
     t1s = np.zeros_like(fs)
     t2s = np.zeros_like(fs)
     
-    for i in tqdm(range(len(fs))):
-        f = fs[i]
-        a1s[i], a2s[i], t1s[i], t2s[i] = double_spring_oscillator(f, 'sin', False, False)
+    # for i in tqdm(range(len(fs))):
+    #     f = fs[i]
+    #     a1s[i], a2s[i], t1s[i], t2s[i] = double_spring_oscillator(f, 'sin', False, False)
+    args = [(f, 'sin', False, False) for f in fs]
+    
+    with ProcessPoolExecutor() as executor:
+        results = list(tqdm(executor.map(wrapper, args), total=len(fs)))
+
+    a1s, a2s, t1s, t2s = zip(*results)
     
     df = pd.DataFrame({
         'f': fs,
@@ -86,9 +97,15 @@ def p1_2():
     t1s = np.zeros_like(fs)
     t2s = np.zeros_like(fs)
     
-    for i in tqdm(range(len(fs))):
-        f = fs[i]
-        a1s[i], a2s[i], t1s[i], t2s[i] = double_spring_oscillator(f, 'square', False, False)
+    args = [(f, 'square', False, False) for f in fs]
+    
+    # for i in tqdm(range(len(fs))):
+    #     f = fs[i]
+    #     a1s[i], a2s[i], t1s[i], t2s[i] = double_spring_oscillator(f, 'square', False, False)
+    with ProcessPoolExecutor() as executor:
+        results = list(tqdm(executor.map(wrapper, args), total=len(fs)))
+
+    a1s, a2s, t1s, t2s = zip(*results)
     
     df = pd.DataFrame({
         'f': fs,
