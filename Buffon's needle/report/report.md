@@ -24,14 +24,14 @@ $$
 
 ##### 2.实验结果
 在$a=4$，$l=3$的条件下，进行了$N=1000000$次投针实验，得到$\pi$的估计值随实验次数增加的图像如下：
-<img src="../figs//pi_estimation.png" width="500">
+<img src="../figs//pi_estimation.png" width="450">
 可以看到，随着实验次数的增加，$\pi$的估计值逐渐收敛于真实值$\pi$。实验最后的$\pi$估计值为$3.14058$
 
 ##### 3.误差分析
 由于$\pi$的估计值为$\pi=\frac{2 l}{a \bar{s}_N}$，取2倍标准差计算，$\pi$的估计值的理论误差为：
 $$\Delta \pi=\frac{\pi}{p} \frac{2 \sigma_p}{\sqrt{N}}=2 \pi \sqrt{\frac{1-p}{N p}}$$
 通过计算$\pi$的实际误差与理论误差，得到如下图像：
-<img src="../figs/error_comparison.png" width="500">
+<img src="../figs/error_comparison.png" width="450">
 可以看到，实际误差均在理论误差之内，实验结果可信。
 
 ##### 4.实验代码
