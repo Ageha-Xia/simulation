@@ -100,3 +100,4 @@ $模拟得到的运动轨迹如下图$
 ##### 2.2
 $临界阻尼系数即满足\omega_0^2-\frac{\gamma^2}{4}=0的\gamma值。在本题中\gamma=2\omega_0=6，模拟得到的图像如下$
 <img src="../fig/p2_2_gamma=6.jpg" width="450">
+
