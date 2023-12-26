@@ -75,7 +75,7 @@ def plot_static(xs, length, title=None, save=None, show=True):
     ax.set_xlim(0, length)
     ax.set_ylim(min(np.min(x) for x in xs) * 0.5 if min(np.min(x) for x in xs) > 0 else min(np.min(x) for x in xs) * 1.5, 
                     max(np.max(x) for x in xs) * 1.5)
-    ax.set_xlabel('Time step')
+    ax.set_xlabel('Time')
     ax.set_ylabel('Position')
     if title:
         ax.set_title(title)

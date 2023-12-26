@@ -10,10 +10,15 @@ class System:
             obj.init(1e-3)
         
     
-    def run(self, dt, steps):
-        for i in tqdm(range(2, steps)):
-            for obj in self.objects:
-                obj.update(dt)
+    def run(self, dt, steps, disable_tqdm=False):
+        if disable_tqdm:
+            for i in range(2, steps):
+                for obj in self.objects:
+                    obj.update(dt)
+        else :
+            for i in tqdm(range(2, steps)):
+                for obj in self.objects:
+                    obj.update(dt)
     
     def get_energy(self):
         energy = 0

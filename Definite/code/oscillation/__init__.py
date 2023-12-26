@@ -1,5 +1,5 @@
-from .strings import *
-from .dampers import *
-from .objects import *
-from .forces import *
-from .system import *
+from .strings import String
+from .dampers import Damper
+from .objects import Object
+from .forces import Force_Sin, Force_Square
+from .system import System
