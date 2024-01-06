@@ -46,19 +46,21 @@
     % Place nodes
     \node (step1) [decision] {光子在闪烁体内部且能量>0？};
     \node (step2) [process, below of=step1, yshift=-1cm] {模拟一次输运过程};
-    \node (step3) [decision, below of=step2, yshift=-2cm] {随机取输运距离，更新位置。在闪烁体内部？};
-    \node (step4) [decision, below of=step3, yshift=-2cm] {发生光电效应？};
+    \node (step3) [process, below of=step2, yshift=-0.5cm] {随机取输运距离，更新位置};
+    \node (step3_5) [decision, below of=step3, yshift=-1cm] {在闪烁体内部？};
+    \node (step4) [decision, below of=step3_5, yshift=-1cm] {发生光电效应？};
     \node (step5) [process, left=of step4, xshift=-1cm] {能量置为0};
     \node (step6) [process, right=of step4, xshift=1cm] {康普顿散射，更新能量};
-    \node (step7) [process, above of=step6] {更新运动方向};
+    \node (step7) [process, above of=step6, yshift=1cm] {更新运动方向};
     \node (return) [startstop, left of=step1, xshift=-4cm] {返回能量损失};
 
     % Draw arrows
     \draw [arrow] (step1) -- node[anchor=east] {是} (step2);
     \draw [arrow] (step1) -- node[anchor=south] {否} (return);
     \draw [arrow] (step2) -- (step3);
-    \draw [arrow] (step3) -| node[anchor=east] {否} (return);
-    \draw [arrow] (step3) -- node[anchor=east] {是} (step4);
+    \draw [arrow] (step3) -- (step3_5);
+    \draw [arrow] (step3_5) -| node[anchor=east] {否} (return);
+    \draw [arrow] (step3_5) -- node[anchor=east] {是} (step4);
     \draw [arrow] (step4) -- node[anchor=south] {是} (step5);
     \draw [arrow] (step4) -- node[anchor=south] {否} (step6);
     \draw [arrow] (step5) -- (step1);

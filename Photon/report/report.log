@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.25)  5 JAN 2024 23:37
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.25)  6 JAN 2024 08:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -710,7 +710,7 @@ LaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <10.53937> not available
 (Font)              size <10.95> substituted on input line 29.
 
 
-Overfull \hbox (17.91055pt too wide) in paragraph at lines 68--69
+Overfull \hbox (17.91055pt too wide) in paragraph at lines 70--71
 [][] 
  []
 
@@ -747,7 +747,7 @@ Package fontspec Info: Font family 'STFangsong(0)' created for font
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/SongtiSCLight(0)/m/sl' in size <10.53937> not available
-(Font)              Font shape `TU/SongtiSCLight(0)/m/it' tried instead on input line 103.
+(Font)              Font shape `TU/SongtiSCLight(0)/m/it' tried instead on input line 101.
 [2]
 File: ../fig/E_D_distribution.png Graphic file (type bmp)
 <../fig/E_D_distribution.png>
@@ -763,12 +763,12 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 22701 strings out of 476683
- 533327 string characters out of 5804046
- 1873018 words of memory out of 5000000
- 42563 multiletter control sequences out of 15000+600000
+ 22710 strings out of 476683
+ 533503 string characters out of 5804046
+ 1871018 words of memory out of 5000000
+ 42572 multiletter control sequences out of 15000+600000
  519197 words of font info for 85 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,8n,97p,587b,1163s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,8n,97p,587b,1745s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on report.pdf (4 pages).
